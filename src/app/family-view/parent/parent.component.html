@@ -1,0 +1,93 @@
+<div id="parent" class="container-fluid">
+  <div class="card">
+    <div class="card-header row">
+      <div class="col-6">PARENT</div>
+      <div class="col-6"><a (click)="moveToIndividual(parent.id)">DETAILS</a></div>
+    </div>
+    <div class="card-body">
+      <div class="row data-container">
+        <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-4">
+          <label id="name-label" class="data-label" for="name-value">Name</label>
+        </div>
+        <div
+          id="name-value"
+          v-if="!info.familyOfOrigin"
+          class="col-12 col-sm-8 col-md-10 col-lg-10 col-xl-8 data-value flex-wrap data-container"
+        >
+          <span>{{ parent.givenName }} {{ parent.surname }}</span>
+        </div>
+        <div
+          :id="'child-name-value-' && info.id"
+          v-if="info.familyOfOrigin"
+          class="col-12 col-sm-8 col-md-10 col-lg-10 col-xl-8 data-value flex-wrap data-container"
+        >
+          <a
+            href="javascript:void(0);"
+            @click="moveToFamilyOfOrigin(info.familyOfOrigin)"
+          >{{ parent.givenName }} {{ parent.surname }}</a>
+        </div>
+      </div>
+      <div class="row data-container">
+        <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-4">
+          <label id="gender-label" class="data-label" for="gender-value">Gender</label>
+        </div>
+        <div
+          id="gender-value"
+          class="col-12 col-sm-8 col-md-9 col-lg-10 col-xl-8 data-value flex-wrap"
+        >{{ parent.gender }}</div>
+      </div>
+      <div class="row data-container">
+        <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-4">
+          <label id="bdate-label" class="data-label" for="bdate-value">Birthdate</label>
+        </div>
+        <div
+          id="bdate-value"
+          class="col-12 col-sm-8 col-md-9 col-lg-10 col-xl-8 data-value flex-wrap"
+        >{{ parent.birthdate }}</div>
+      </div>
+      <div class="row data-container">
+        <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-4">
+          <label id="bloc-label" class="data-label" for="bloc-value">Location</label>
+        </div>
+        <div
+          id="bloc-value"
+          class="col-12 col-sm-8 col-md-9 col-lg-10 col-xl-8 data-value flex-wrap"
+        >{{ parent.birthLocation }}</div>
+      </div>
+      <div class="row data-container">
+        <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-4">
+          <label id="ddate-label" class="data-label" for="ddate-value">Deathdate</label>
+        </div>
+        <div
+          id="ddate-value"
+          class="col-12 col-sm-8 col-md-9 col-lg-10 col-xl-8 data-value flex-wrap"
+        >{{ parent.deathdate }}</div>
+      </div>
+      <div class="row data-container">
+        <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-4">
+          <label id="dloc-label" class="data-label" for="dloc-value">Location</label>
+        </div>
+        <div
+          id="dloc-value"
+          class="col-12 col-sm-8 col-md-9 col-lg-10 col-xl-8 data-value flex-wrap"
+        >{{ parent.deathLocation }}</div>
+      </div>
+      <div class="row data-container">
+        <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-4">
+          <label id="other-label" class="data-label" for="other-value">Other Partners</label>
+        </div>
+        <div id="other-value"
+          class="col-12 col-sm-8 col-md-9 col-lg-10 col-xl-8 data-value flex-wrap">
+        <div
+
+          v-for="(family, index) in parent.otherFamilies" :key="index"
+        ><div><a
+            href="javascript:void(0);"
+            @click="moveToAnotherFamily(family.familyId)"
+          >{{ family.spouseName }}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

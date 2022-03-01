@@ -1,4 +1,5 @@
-export class Individual {
+import { OtherFamily } from './other-family';
+export interface Individual {
   id: string;
   givenName: string;
   surname: string;
@@ -9,13 +10,5 @@ export class Individual {
   deathLocation?: string;
   familyOfOrigin?: number;
   firstFamilyStarted?: number;
-  portrayAsNaturalChild?: boolean;
   notes?: string[];
-
-  constructor() {
-    this.id = '0';
-    this.givenName = '';
-    this.surname = '';
-    this.gender = '';
-  }
 }

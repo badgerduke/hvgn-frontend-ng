@@ -1,17 +1,28 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FamilyService {
 
-  constructor() { }
+  currentFamilyIdSubject: Subject<number>;
+  currentFamilyId$: Observable<number>;
 
-  getCurrentFamilyId(): number {
-    const familyId = localStorage.getItem('familyId');
-    if (familyId) {
-      return +familyId;
+  constructor() {
+    let familyId;
+    const familyIdString = localStorage.getItem('familyId');
+    if (familyIdString) {
+      familyId = +familyIdString;
     }
-    return 1;
+    else {
+      familyId = 1;
+    }
+    this.currentFamilyIdSubject = new BehaviorSubject<number>(familyId);
+    this.currentFamilyId$ = this.currentFamilyIdSubject.asObservable();
+  }
+
+  changeCurrentFamilyId(newCurrentFamilyId: number): void {
+    this.currentFamilyIdSubject.next(newCurrentFamilyId);
   }
 }
