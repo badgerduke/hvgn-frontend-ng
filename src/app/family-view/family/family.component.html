@@ -1,1 +1,41 @@
-<p>family works!</p>
+<div id="family">
+  <div class="container-fluid" *ngIf="family">
+    <div id="parents-row" class="row">
+      <div
+        id="parent-left"
+        class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-left"
+      >
+      <app-parent *ngIf="family && family.parents.length > 0"
+        [parent]="family.parents[0]"
+        (moveToAnotherFamilyEvent)="moveToAnotherFamily($event)"></app-parent>
+      </div>
+      <div
+        id="parent-right"
+        class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-left"
+      >
+      <app-parent *ngIf="family && family.parents.length > 1"
+          [parent]="family.parents[1]"
+          (moveToAnotherFamilyEvent)="moveToAnotherFamily($event)"></app-parent>
+      </div>
+      <div
+        id="union-right"
+        class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 text-left"
+      >
+        <app-union *ngIf="family && family.union && family.union.length > 0"
+          [union]="family.union[0]"></app-union>
+      </div>
+    </div>
+    <div class="container-fluid">
+    <div class="card" *ngIf="family && family.children">
+      <div class="card-header">CHILDREN</div>
+      <div id="children-row" class=" card-body row">
+      <div class="child-list col-12" *ngFor="let child in family.children">
+          <app-child
+            [child]="child"
+            (moveToChildsFamilyEvent)="moveToAnotherFamily($event)"></app-child>
+      </div>
+    </div>
+      </div>
+  </div>
+  </div>
+</div><p>family works!</p>

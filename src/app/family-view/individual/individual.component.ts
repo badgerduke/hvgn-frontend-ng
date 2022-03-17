@@ -1,7 +1,7 @@
 import { FamilyService } from './../family/family.service';
 import { Individual } from './../../models/individual';
 import { IndividualService } from './individual.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, Subscription } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { map, switchMap, Subscription } from 'rxjs';
   templateUrl: './individual.component.html',
   styleUrls: ['./individual.component.scss']
 })
-export class IndividualComponent implements OnInit {
+export class IndividualComponent implements OnInit, OnDestroy {
 
   individual!: Individual;
   currentFamilyId!: number;
@@ -39,6 +39,10 @@ export class IndividualComponent implements OnInit {
       (result) => this.currentFamilyId = result
     ))
 
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   goBackToFamily() {

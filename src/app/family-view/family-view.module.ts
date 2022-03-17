@@ -4,6 +4,8 @@ import { IndividualComponent } from './individual/individual.component';
 import { FamilyViewRoutingModule } from './family-view-routing.module';
 import { FamilyComponent } from './family/family.component';
 import { ParentComponent } from './parent/parent.component';
+import { ChildComponent } from './child/child.component';
+import { UnionComponent } from './union/union.component';
 
 
 
@@ -11,7 +13,9 @@ import { ParentComponent } from './parent/parent.component';
   declarations: [
     IndividualComponent,
     FamilyComponent,
-    ParentComponent
+    ParentComponent,
+    ChildComponent,
+    UnionComponent
   ],
   imports: [
     CommonModule,

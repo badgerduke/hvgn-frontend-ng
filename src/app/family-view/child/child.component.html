@@ -1,0 +1,21 @@
+<div class="child row">
+
+  <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-1 data-container">
+    <label [id]="'child-name-label-' && child.id" class="data-label" [for]="'child-name-value-' + child.id">Name</label>
+  </div>
+  <div [id]="'child-name-value-' + child.id" *ngIf="!child.familyIdToDisplay" class="col-12 col-sm-9 col-md-10 col-lg-4 col-xl-3 data-value flex-wrap data-container">
+    {{ child.givenName }} {{ child.surname }}
+  </div>
+  <div [id]="'child-name-value-' + child.id" *ngIf="child.familyIdToDisplay" class="col-12 col-sm-9 col-md-10 col-lg-4 col-xl-3 data-value flex-wrap data-container">
+    <a href="javascript:void(0);" (click)="moveToChildsFamily(+child.familyIdToDisplay)">{{ child.givenName }} {{ child.surname }}</a>
+  </div>
+
+  <div class="col-12 col-sm-3 col-md-2 col-lg-2 col-xl-1 data-container">
+    <label [id]="'child-birthdate-label-' + child.id" class="data-label" [for]="'child-birthdate-value-' + child.id">Birthdate</label>
+  </div>
+  <div [id]="'child-birthdate-value-' + child.id" class="col-12 col-sm-6 col-md-6 col-lg-2 col-xl-2 data-value flex-wrap data-container">
+    {{ child.birthdate }}
+  </div>
+
+  <div class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-3 "><a (click)="moveToIndividual(child.id)">DETAILS</a></div>
+</div>
