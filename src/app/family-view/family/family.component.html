@@ -29,7 +29,7 @@
     <div class="card" *ngIf="family && family.children">
       <div class="card-header">CHILDREN</div>
       <div id="children-row" class=" card-body row">
-      <div class="child-list col-12" *ngFor="let child in family.children">
+      <div class="child-list col-12" *ngFor="let child of family.children">
           <app-child
             [child]="child"
             (moveToChildsFamilyEvent)="moveToAnotherFamily($event)"></app-child>
@@ -38,4 +38,4 @@
       </div>
   </div>
   </div>
-</div><p>family works!</p>
+</div>

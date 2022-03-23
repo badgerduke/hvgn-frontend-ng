@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseurl: 'https://api.hvgn.net/dev'
 };
 
 /*

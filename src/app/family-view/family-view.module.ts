@@ -6,6 +6,7 @@ import { FamilyComponent } from './family/family.component';
 import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
 import { UnionComponent } from './union/union.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -19,7 +20,8 @@ import { UnionComponent } from './union/union.component';
   ],
   imports: [
     CommonModule,
-    FamilyViewRoutingModule
+    FamilyViewRoutingModule,
+    HttpClientModule
   ]
 })
 export class FamilyViewModule { }

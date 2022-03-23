@@ -19,7 +19,7 @@ export class FamilyComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.subscription.add(this.route.queryParams.pipe(
+    this.subscription.add(this.route.params.pipe(
       map(params => params['id']),
       switchMap(id => {
         return this.familyService.fetchFamily(id);
@@ -37,7 +37,7 @@ export class FamilyComponent implements OnInit, OnDestroy {
   }
 
   moveToAnotherFamily(id: number): void {
-    this.router.navigate(['/family', { id }])
+    this.router.navigate(['/family', id])
     this.familyService.changeCurrentFamilyId(id);
   }
 

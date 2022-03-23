@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Family } from 'src/app/models/family';
@@ -30,6 +30,6 @@ export class FamilyService {
   }
 
   fetchFamily(id: number): Observable<Family> {
-    return this.httpClient.get<Family>(`/family/${id}`);
+  return this.httpClient.get<Family>(`family/${id}`);
   }
 }

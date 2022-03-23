@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutComponent } from './about.component';
+import { AboutViewRoutingModule } from './about-view-routing.module';
 
 
 
@@ -9,7 +10,8 @@ import { AboutComponent } from './about.component';
     AboutComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AboutViewRoutingModule
   ]
 })
 export class AboutViewModule { }

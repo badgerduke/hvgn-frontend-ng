@@ -11,7 +11,7 @@
         </div>
         <div
           id="name-value"
-          v-if="!info.familyOfOrigin"
+          *ngIf="!parent.familyOfOrigin"
           class="col-12 col-sm-8 col-md-10 col-lg-10 col-xl-8 data-value flex-wrap data-container"
         >
           <span>{{ parent.givenName }} {{ parent.surname }}</span>
@@ -77,11 +77,10 @@
         </div>
         <div id="other-value"
           class="col-12 col-sm-8 col-md-9 col-lg-10 col-xl-8 data-value flex-wrap">
-        <div
-          *ngFor="let family in parent.otherFamilies"
+        <div *ngFor="let family of parent.otherFamilies"
         ><div><a
             href="javascript:void(0);"
-            (click)="moveToAnotherFamily(family.familyId)"
+            (click)="moveToAnotherFamily(+family.familyId)"
           >{{ family.spouseName }}</a></div>
         </div>
       </div>

@@ -19,7 +19,7 @@ export class ParentComponent implements OnInit {
   }
 
   moveToIndividual(id: string): void {
-    this.router.navigate(['/individual', {id}]);
+    this.router.navigate(['/individual', id]);
   }
 
   moveToFamilyOfOrigin(id: number): void {

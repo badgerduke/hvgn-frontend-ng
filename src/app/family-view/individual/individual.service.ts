@@ -11,6 +11,6 @@ export class IndividualService {
   constructor(private httpClient: HttpClient) { }
 
   fetchIndividual(id: number): Observable<Individual> {
-    return this.httpClient.get<Individual>(`/individual/${id}`);
+    return this.httpClient.get<Individual>(`individual/${id}`);
   }
 }

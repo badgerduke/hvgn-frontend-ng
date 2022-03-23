@@ -23,7 +23,7 @@ export class IndividualComponent implements OnInit, OnDestroy {
     private router: Router) {}
 
   ngOnInit(): void {
-    this.subscription.add(this.route.queryParams.pipe(
+    this.subscription.add(this.route.params.pipe(
       map(params => params['id']),
       switchMap(id => {
         return this.individualService.fetchIndividual(id);
@@ -56,7 +56,7 @@ export class IndividualComponent implements OnInit, OnDestroy {
         familyIdToRoute = 1;
       }
     }
-    this.router.navigate(['/family', {id: familyIdToRoute}])
+    this.router.navigate(['/family', familyIdToRoute])
   }
 
 }
