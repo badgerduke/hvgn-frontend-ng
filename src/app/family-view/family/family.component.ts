@@ -19,15 +19,10 @@ export class FamilyComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.subscription.add(this.route.params.pipe(
-      map(params => params['id']),
-      switchMap(id => {
-        return this.familyService.fetchFamily(id);
-      })
-    )
+    this.subscription.add(this.route.data
     .subscribe(
-        (result) => {
-          this.family = result;
+        (response) => {
+          this.family = response['family'];
         }
     ));
   }

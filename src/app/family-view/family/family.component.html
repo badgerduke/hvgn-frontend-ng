@@ -1,5 +1,5 @@
-<div id="family">
-  <div class="container-fluid" *ngIf="family">
+<div id="family"class="container-fluid">
+  <div *ngIf="family">
     <div id="parents-row" class="row">
       <div
         id="parent-left"
@@ -25,7 +25,6 @@
           [union]="family.union[0]"></app-union>
       </div>
     </div>
-    <div class="container-fluid">
     <div class="card" *ngIf="family && family.children">
       <div class="card-header">CHILDREN</div>
       <div id="children-row" class=" card-body row">
@@ -36,6 +35,5 @@
       </div>
     </div>
       </div>
-  </div>
   </div>
 </div>

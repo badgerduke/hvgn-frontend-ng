@@ -23,15 +23,10 @@ export class IndividualComponent implements OnInit, OnDestroy {
     private router: Router) {}
 
   ngOnInit(): void {
-    this.subscription.add(this.route.params.pipe(
-      map(params => params['id']),
-      switchMap(id => {
-        return this.individualService.fetchIndividual(id);
-      })
-    )
+    this.subscription.add(this.route.data
     .subscribe(
-        (result) => {
-          this.individual = result;
+        (response) => {
+          this.individual = response['individual'];
         }
     ));
 
