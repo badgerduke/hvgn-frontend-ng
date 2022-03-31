@@ -1,0 +1,28 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - echo Installing packages for frontend at `date`
+      - npm install
+      - echo Finished installing packages for frontend at `date`
+  pre_build:
+    commands:
+  build:
+    commands:
+      - echo Building modules for frontend at `date`
+      - npx ng build
+      - mkdir dist-dev
+      - mv -v dist/* dist-dev
+      - echo Finished building modules for dev frontend at `date`
+      - mkdir dist-prod
+      - mv -v dist/* dist-prod
+      - echo Finished building modules for prod frontend at `date`
+  post_build:
+    commands:
+artifacts:
+  files:
+    - ./dist-dev/**/*
+    - ./dist-prod/**/*
+    - ./deploy/buildspec.yml

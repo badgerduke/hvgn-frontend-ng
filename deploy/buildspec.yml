@@ -1,0 +1,13 @@
+version: 0.2
+phases:
+  install:
+    commands:
+  pre_build:
+    commands:
+  build:
+    commands:
+      - echo Syncing bucket at `date`
+      - aws s3 sync ./dist-$env s3://$bucket --delete
+      - echo Finished syncing bucket for $env frontend at `date`
+  post_build:
+    commands:
