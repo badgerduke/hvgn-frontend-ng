@@ -12,7 +12,6 @@ phases:
   build:
     commands:
       - echo Building modules for frontend at `date`
-      - pwd
       - npx ng build
       - mkdir dist-dev
       - mv -v dist/* dist-dev
