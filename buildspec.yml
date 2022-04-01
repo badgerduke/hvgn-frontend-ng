@@ -4,6 +4,7 @@ phases:
     runtime-versions:
       nodejs: latest
     commands:
+      - echo $CODEBUILD_SOURCE_VERSION
       - echo Installing packages for frontend at `date`
       - npm install
       - echo Finished installing packages for frontend at `date`
@@ -14,10 +15,10 @@ phases:
       - echo Building modules for frontend at `date`
       - npx ng build
       - mkdir dist-dev
-      - mv -v dist/* dist-dev
+      - cp -r dist/**/* dist-dev
       - echo Finished building modules for dev frontend at `date`
       - mkdir dist-prod
-      - mv -v dist/* dist-prod
+      - cp -r dist/* dist-prod
       - echo Finished building modules for prod frontend at `date`
   post_build:
     commands:
