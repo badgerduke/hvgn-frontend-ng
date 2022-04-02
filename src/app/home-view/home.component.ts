@@ -33,13 +33,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   download(filePath: string, mime: string): void {
-    this.donwloadService.download(filePath).subscribe(
+    this.subscription.add(this.donwloadService.download(filePath).subscribe(
       (response: any) => {
         const blob:any = new Blob([response], { type: mime });
-        // let blob:any = new Blob([response], { type: 'text/json; charset=utf-8' });
         window.URL.createObjectURL(blob);
       }
-    )
+    ))
   }
 
 }
