@@ -12,14 +12,22 @@ import { saveAs } from 'file-saver';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  images = ["../assets/hvgn_200.jpeg","../assets/matt_wedding_100.jpeg"];
+  loadedCount = 0;
+  imagesLoaded = false;
+
   currentFamilyId!: number;
   subscription: Subscription = new Subscription();
 
   constructor(private router: Router,
               private familyService: FamilyService,
-              private donwloadService: DownloadService) { }
+              private donwloadService: DownloadService) {
+
+
+  }
 
   ngOnInit(): void {
+    this.preloadImages();
     this.subscription.add(this.familyService.currentFamilyId$.subscribe(
       (familyId: number) => this.currentFamilyId = familyId
     ))
@@ -27,6 +35,23 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  preloadImages(){
+    for(let i = 0; i < this.images.length; i++){
+      let img = new Image();
+      img.onload = () => {
+        this.loaded();
+      }
+      img.src = this.images[i];
+    }
+  }
+
+  loaded(){
+    this.loadedCount++;
+    if(this.images.length == this.loadedCount){
+      this.imagesLoaded = true;
+    }
   }
 
   moveToTree(): void {
