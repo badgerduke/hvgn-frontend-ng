@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 import { FamilyService } from './../family-view/family/family.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { DownloadService } from '../core/download.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentFamilyId!: number;
   subscription: Subscription = new Subscription();
 
-  constructor(private router: Router, private familyService: FamilyService) { }
+  constructor(private router: Router,
+              private familyService: FamilyService,
+              private donwloadService: DownloadService) { }
 
   ngOnInit(): void {
     this.subscription.add(this.familyService.currentFamilyId$.subscribe(
@@ -27,6 +30,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   moveToTree(): void {
     this.router.navigate(['/family', this.currentFamilyId])
+  }
+
+  download(filePath: string, mime: string): void {
+    this.donwloadService.download(filePath).subscribe(
+      (response: any) => {
+        const blob:any = new Blob([response], { type: mime });
+        // let blob:any = new Blob([response], { type: 'text/json; charset=utf-8' });
+        window.URL.createObjectURL(blob);
+      }
+    )
   }
 
 }

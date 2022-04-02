@@ -9,7 +9,13 @@ import {Observable} from 'rxjs';
 export class BaseurlInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const apiReq = req.clone({ url: `${environment.baseurl}/${req.url}` });
+    let apiReq;
+    if (req.responseType === 'blob') {
+      apiReq = req.clone();
+    }
+    else {
+      apiReq = req.clone({ url: `${environment.baseurl}/${req.url}` });
+    }
     return next.handle(apiReq);
   }
 }
