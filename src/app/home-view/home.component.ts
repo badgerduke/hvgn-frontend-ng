@@ -3,6 +3,7 @@ import { FamilyService } from './../family-view/family/family.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DownloadService } from '../core/download.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       (response: any) => {
         const blob:any = new Blob([response], { type: mime });
         window.URL.createObjectURL(blob);
+        const fileParts = filePath.split('/');
+        saveAs(blob, fileParts[fileParts.length - 1]);
       }
     ))
   }
