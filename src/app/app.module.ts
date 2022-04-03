@@ -9,6 +9,7 @@ import { AboutViewModule } from './about-view/about-view.module';
 import { CoreModule } from './core/core.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BaseurlInterceptor } from './core/baseurl-interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BaseurlInterceptor } from './core/baseurl-interceptor';
     AboutViewModule,
     CoreModule,
     AppRoutingModule,
+    NgbModule
   ],
   providers: [
     {

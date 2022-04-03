@@ -13,6 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
   spinnerState = false;
   currentFamily!: number;
   subscription: Subscription = new Subscription();
+  isMenuCollapsed = true;
 
   constructor(private spinnerService: SpinnerService,
     private familyService: FamilyService) { }

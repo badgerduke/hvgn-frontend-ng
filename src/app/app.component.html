@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
       <a class="navbar-brand" href="#">HVGN</a>
-      <button
+      <button (click)="isMenuCollapsed = !isMenuCollapsed"
         class="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -13,11 +13,11 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li><a class="nav-link" routerLink="/home">Home</a></li>
-          <li><a class="nav-link" routerLink="/about">About</a></li>
-          <li><a class="nav-link" routerLink="/family/{{currentFamily}}">Eric's Tree</a></li>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isMenuCollapsed">
+        <ul ngbNav class="navbar-nav mr-auto">
+          <li ngbNavItem><a ngbNavLink class="nav-link" routerLink="/home" (click)="isMenuCollapsed = true">Home</a></li>
+          <li ngbNavItem><a ngbNavLink class="nav-link" routerLink="/about" (click)="isMenuCollapsed = true">About</a></li>
+          <li ngbNavItem><a ngbNavLink class="nav-link" routerLink="/family/{{currentFamily}}" (click)="isMenuCollapsed = true">Eric's Tree</a></li>
         </ul>
       </div>
     </nav>
