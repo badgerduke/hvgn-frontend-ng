@@ -1,10 +1,16 @@
+import { LogLevel } from 'angular-auth-oidc-client';
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false,
-  baseurl: 'https://api.hvgn.net/dev'
+  baseurl: 'https://api.hvgn.net/dev',
+  oidc_authority: 'https://offeringsolutions-sts.azurewebsites.net',
+  oidc_clientId: '',
+  oidc_postLogoutRedirectUri: '',
+  oidc_redirectUrl: '',
+  oidc_logLevel: LogLevel.Debug
 };
 
 /*

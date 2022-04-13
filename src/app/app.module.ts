@@ -1,3 +1,4 @@
+import { ProtectedModule } from './protected/protected.module';
 import { LoadingInterceptor } from './core/loading-interceptor';
 import { HomeViewModule } from './home-view/home-view.module';
 import { FamilyViewModule } from './family-view/family-view.module';
@@ -10,6 +11,7 @@ import { CoreModule } from './core/core.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BaseurlInterceptor } from './core/baseurl-interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthOidcModule } from './auth/auth-oidc.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FamilyViewModule,
     HomeViewModule,
     AboutViewModule,
+    ProtectedModule,
+    AuthOidcModule,
     CoreModule,
     AppRoutingModule,
     NgbModule
