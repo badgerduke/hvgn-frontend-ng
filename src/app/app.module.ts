@@ -18,12 +18,13 @@ import { AuthOidcModule } from './auth/auth-oidc.module';
     AppComponent
   ],
   imports: [
+    AuthOidcModule,
     BrowserModule,
     FamilyViewModule,
     HomeViewModule,
     AboutViewModule,
     ProtectedModule,
-    AuthOidcModule,
+
     CoreModule,
     AppRoutingModule,
     NgbModule

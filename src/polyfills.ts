@@ -53,5 +53,7 @@ import 'zone.js';  // Included with Angular CLI.
 
 
 /***************************************************************************************************
- * APPLICATION IMPORTS
+ * Used to fix "Uncaught ReferenceError: global is not defined" when using "amazon-cognito-identity-js"
+ * package with Angular
  */
+(window as any).global = window;
