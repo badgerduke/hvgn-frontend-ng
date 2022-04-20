@@ -3,8 +3,9 @@ import { FamilyService } from './family-view/family/family.service';
 import { SpinnerService } from './core/spinner.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest, delay, filter, Subscription } from 'rxjs';
-import { AuthenticatedResult, OidcSecurityService } from 'angular-auth-oidc-client';
+import { AuthenticatedResult, ConfigUserDataResult, OidcSecurityService, UserDataResult } from 'angular-auth-oidc-client';
 import { AuthService } from './auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private spinnerService: SpinnerService,
     private familyService: FamilyService,
     private oidcSecurityService: OidcSecurityService,
-    private authService: AuthService,
-    private router: Router) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.setUpSpinnerSubscription();
@@ -52,8 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
   setUpIsAuthenticatedSubscription(): void {
     this.subscription.add(this.oidcSecurityService.isAuthenticated$.subscribe(
       (auth: AuthenticatedResult) => {
-        console.log(`observ ${auth.isAuthenticated} ${sessionStorage.getItem('lastStateIsLoginCallback')}`);
-        if (auth.isAuthenticated || sessionStorage.getItem('lastStateIsLoginCallback') === 'true') {
+        if (auth.isAuthenticated) {
           this.authenticated = true;
         }
         else {
@@ -65,11 +64,26 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   setUpCheckAuthSubscription(): void {
-    this.subscription.add(this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData, accessToken }) => {
+    this.subscription.add(this.oidcSecurityService.checkAuth().subscribe(({isAuthenticated, userData, accessToken, idToken, configId}) => {
       console.log('app authenticated', isAuthenticated);
       if (isAuthenticated) {
-        this.authenticated = true;
-      }
+        let sessionData = sessionStorage.getItem(configId);
+        if (sessionData) {
+          let sessionDataJSON: any = JSON.parse(sessionData);
+          const revokationEndpoint = environment.oidc_authority + environment.oidc_revoke_endpoint_path;
+          const logoffEndpoint = environment.oidc_authority + environment.oidc_logoff_endpoint_path;
+          if (!sessionDataJSON['authWellKnownEndPoints']['revocationEndpoint']) {
+            sessionDataJSON['authWellKnownEndPoints']['revocationEndpoint'] = revokationEndpoint;
+            sessionData = JSON.stringify(sessionDataJSON);
+            sessionStorage.setItem(configId, sessionData);
+          }
+          if (!sessionDataJSON['authWellKnownEndPoints']['signoutEndpoint']) {
+            sessionDataJSON['authWellKnownEndPoints']['signoutEndpoint'] = logoffEndpoint;
+            sessionData = JSON.stringify(sessionDataJSON);
+            sessionStorage.setItem(configId, sessionData);
+          }
+        }
+    }
     }));
   }
 
@@ -80,10 +94,18 @@ export class AppComponent implements OnInit, OnDestroy {
   logout(): void {
     this.oidcSecurityService.logoffLocal();
     this.authenticated = false;
-    this.authService.logoff(
-      this.oidcSecurityService.getConfiguration().authority!,
-      this.oidcSecurityService.getConfiguration().clientId!,
-      this.oidcSecurityService.getConfiguration().postLogoutRedirectUri!
-    );
+    this.oidcSecurityService.logoffAndRevokeTokens().subscribe(
+      {
+        next: () => { },
+        error: (error: any) => console.log(error),
+        complete: () => {
+            this.authService.logoff(
+              this.oidcSecurityService.getConfiguration().authority!,
+              this.oidcSecurityService.getConfiguration().clientId!,
+              this.oidcSecurityService.getConfiguration().postLogoutRedirectUri!
+            );
+          }
+      }
+    )
   }
 }

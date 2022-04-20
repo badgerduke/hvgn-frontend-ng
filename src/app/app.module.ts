@@ -2,7 +2,7 @@ import { ProtectedModule } from './protected/protected.module';
 import { LoadingInterceptor } from './core/loading-interceptor';
 import { HomeViewModule } from './home-view/home-view.module';
 import { FamilyViewModule } from './family-view/family-view.module';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BaseurlInterceptor } from './core/baseurl-interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthOidcModule } from './auth/auth-oidc.module';
+import { HvgnErrorHandler } from './core/hvgn-error-handler';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,10 @@ import { AuthOidcModule } from './auth/auth-oidc.module';
     NgbModule
   ],
   providers: [
+    {
+      provide: ErrorHandler,
+      useClass: HvgnErrorHandler
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseurlInterceptor,

@@ -12,15 +12,15 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
 
 
   subscription: Subscription = new Subscription();
+  authenticated!: boolean;
 
   constructor(private oidcSecurityService: OidcSecurityService,
               private router: Router) { }
 
 
   ngOnInit(): void {
-    this.subscription.add(this.oidcSecurityService.isAuthenticated$.subscribe(({ isAuthenticated}) => {
-      console.log('callback authenticated', isAuthenticated);
-      console.log(`redirect url '${this.oidcSecurityService.getConfiguration().redirectUrl}'`);
+    this.subscription.add(this.oidcSecurityService.isAuthenticated$.subscribe(({ isAuthenticated }) => {
+      this.authenticated = isAuthenticated;
       if (isAuthenticated) {
         if (this.oidcSecurityService.getConfiguration().redirectUrl?.indexOf('login/callback')  !== -1) {
           this.router.navigate(['/']);
@@ -28,10 +28,6 @@ export class LoginCallbackComponent implements OnInit, OnDestroy {
         else {
           this.router.navigate([this.oidcSecurityService.getConfiguration().redirectUrl]);
         }
-      }
-      else {
-        sessionStorage.setItem('lastStateIsLoginCallback', 'true');
-        this.router.navigate(['/'])
       }
     }));
   }
