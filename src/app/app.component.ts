@@ -71,14 +71,8 @@ export class AppComponent implements OnInit, OnDestroy {
         if (sessionData) {
           let sessionDataJSON: any = JSON.parse(sessionData);
           const revokationEndpoint = environment.oidc_authority + environment.oidc_revoke_endpoint_path;
-          const logoffEndpoint = environment.oidc_authority + environment.oidc_logoff_endpoint_path;
           if (!sessionDataJSON['authWellKnownEndPoints']['revocationEndpoint']) {
             sessionDataJSON['authWellKnownEndPoints']['revocationEndpoint'] = revokationEndpoint;
-            sessionData = JSON.stringify(sessionDataJSON);
-            sessionStorage.setItem(configId, sessionData);
-          }
-          if (!sessionDataJSON['authWellKnownEndPoints']['signoutEndpoint']) {
-            sessionDataJSON['authWellKnownEndPoints']['signoutEndpoint'] = logoffEndpoint;
             sessionData = JSON.stringify(sessionDataJSON);
             sessionStorage.setItem(configId, sessionData);
           }
@@ -96,15 +90,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authenticated = false;
     this.oidcSecurityService.logoffAndRevokeTokens().subscribe(
       {
-        next: () => { },
+        next: () => {
+          this.authService.logoff(
+            this.oidcSecurityService.getConfiguration().authority!,
+            this.oidcSecurityService.getConfiguration().clientId!,
+            this.oidcSecurityService.getConfiguration().postLogoutRedirectUri!
+          );
+        },
         error: (error: any) => console.log(error),
-        complete: () => {
-            this.authService.logoff(
-              this.oidcSecurityService.getConfiguration().authority!,
-              this.oidcSecurityService.getConfiguration().clientId!,
-              this.oidcSecurityService.getConfiguration().postLogoutRedirectUri!
-            );
-          }
+        complete: () => {}
       }
     )
   }
