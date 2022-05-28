@@ -9,6 +9,8 @@ phases:
       - echo Finished installing packages for frontend at `date`
   pre_build:
     commands:
+      - ./retrieve-and-set-user-pool-id-and-client-id.sh $cognitoDevName $pathToDevEnvFile
+    #  - ./retrieve-and-set-user-pool-id-and-client-id.sh $cognitoProdName $pathToProdEnvFile
   build:
     commands:
       - echo Building modules for frontend at `date`

@@ -10,7 +10,9 @@ export class BaseurlInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     let apiReq;
-    if (req.responseType === 'blob' || req.url.indexOf('cognito') !== -1) {
+    if (req.responseType === 'blob' ||
+      (req.url.indexOf('hvgn') !== -1 && req.url.indexOf('auth') !== -1) ||
+      req.url.indexOf('cognito-idp') !== -1) {
       apiReq = req.clone();
     }
     else {

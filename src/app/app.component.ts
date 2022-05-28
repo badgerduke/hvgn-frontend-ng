@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.oidcSecurityService.logoffLocal();
+
     this.authenticated = false;
     this.oidcSecurityService.logoffAndRevokeTokens().subscribe(
       {
@@ -96,6 +96,7 @@ export class AppComponent implements OnInit, OnDestroy {
             this.oidcSecurityService.getConfiguration().clientId!,
             this.oidcSecurityService.getConfiguration().postLogoutRedirectUri!
           );
+          this.oidcSecurityService.logoffLocal();
         },
         error: (error: any) => console.log(error),
         complete: () => {}
