@@ -65,7 +65,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   setUpCheckAuthSubscription(): void {
     this.subscription.add(this.oidcSecurityService.checkAuth().subscribe(({isAuthenticated, userData, accessToken, idToken, configId}) => {
-      console.log('app authenticated', isAuthenticated);
       if (isAuthenticated) {
         let sessionData = sessionStorage.getItem(configId);
         if (sessionData) {
