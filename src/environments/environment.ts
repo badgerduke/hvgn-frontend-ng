@@ -6,7 +6,7 @@ import { LogLevel } from 'angular-auth-oidc-client';
 export const environment = {
   production: false,
   baseurl: 'https://api.hvgn.net/dev',
-  oidc_authority: 'https://hvgn-dev-auth.auth.us-east-1.amazoncognito.com/<userPoolId>',
+  oidc_authority: 'https://hvgn-dev-auth.auth.us-east-1.amazoncognito.com/',
   oidc_clientId: '<clientId>',
   oidc_postLogoutRedirectUri: 'https://dev.hvgn.net',
   oidc_redirectUrl: 'https://dev.hvgn.net/login/callback',
