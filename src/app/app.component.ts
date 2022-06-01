@@ -2,7 +2,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { FamilyService } from './family-view/family/family.service';
 import { SpinnerService } from './core/spinner.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest, delay, filter, Subscription } from 'rxjs';
+import { combineLatest, delay, filter, forkJoin, Subscription } from 'rxjs';
 import { AuthenticatedResult, ConfigUserDataResult, OidcSecurityService, UserDataResult } from 'angular-auth-oidc-client';
 import { AuthService } from './auth/auth.service';
 import { environment } from 'src/environments/environment';
@@ -87,7 +87,9 @@ export class AppComponent implements OnInit, OnDestroy {
   logout(): void {
 
     this.authenticated = false;
-    this.oidcSecurityService.logoffAndRevokeTokens().subscribe(
+   // this.oidcSecurityService.logoffAndRevokeTokens().subscribe(
+    this.subscription.add(this.authService.revokeRefreshToken()
+      .subscribe(
       {
         next: () => {
           this.authService.logoff(
@@ -99,7 +101,8 @@ export class AppComponent implements OnInit, OnDestroy {
         },
         error: (error: any) => console.log(error),
         complete: () => {}
-      }
+      })
     )
   }
+
 }
