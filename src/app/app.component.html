@@ -18,7 +18,6 @@
           <li ngbNavItem><a ngbNavLink class="nav-link" routerLink="/home" (click)="isMenuCollapsed = true">Home</a></li>
           <li ngbNavItem><a ngbNavLink class="nav-link" routerLink="/about" (click)="isMenuCollapsed = true">About</a></li>
           <li ngbNavItem><a ngbNavLink class="nav-link" routerLink="/family/{{currentFamily}}" (click)="isMenuCollapsed = true">Eric's Tree</a></li>
-          <li ngbNavItem><a ngbNavLink class="nav-link" routerLink="/protected" (click)="isMenuCollapsed = true">Protected</a></li>
         </ul>
         <ul ngbNav class="navbar-nav mr-auto ms-auto">
           <li ngbNavItem><a ngbNavLink *ngIf="!authenticated" class="nav-link" (click)="isMenuCollapsed = true; login();">Login</a></li>

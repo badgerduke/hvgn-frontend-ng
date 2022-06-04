@@ -1,4 +1,3 @@
-import { ProtectedModule } from './protected/protected.module';
 import { LoadingInterceptor } from './core/loading-interceptor';
 import { HomeViewModule } from './home-view/home-view.module';
 import { FamilyViewModule } from './family-view/family-view.module';
@@ -24,8 +23,6 @@ import { HvgnErrorHandler } from './core/hvgn-error-handler';
     FamilyViewModule,
     HomeViewModule,
     AboutViewModule,
-    ProtectedModule,
-
     CoreModule,
     AppRoutingModule,
     NgbModule

@@ -28,7 +28,7 @@ import { LoginCallbackComponent } from './login-callback/login-callback.componen
         redirectUrl: environment.oidc_redirectUrl,
         postLogoutRedirectUri: environment.oidc_postLogoutRedirectUri,
         clientId: environment.oidc_clientId,
-        scope: 'openid profile email aws.cognito.signin.user.admin phone',
+        scope: 'openid profile email phone api.hvgn.net/hvgn',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
